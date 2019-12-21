@@ -21,7 +21,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "yarn run build && firebase deploy --except functions -P poker-5e606",
+    "deploy:rules": "firebase deploy --only firestore:rules -P poker-5e606"
   },
   "eslintConfig": {
     "extends": "react-app"
