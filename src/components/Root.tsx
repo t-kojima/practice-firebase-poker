@@ -1,18 +1,14 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import SignInScreen from './SignInScreen';
 
 import firebase from '../firebase';
 
 const auth = firebase.auth();
 const db = firebase.firestore();
 const usersRef = db.collection('users');
-
-interface IProvider {
-  [key: string]: firebase.auth.AuthProvider;
-  Google: firebase.auth.AuthProvider;
-}
 
 interface Props {
   routes: (extraProps: any) => JSX.Element;
@@ -26,11 +22,9 @@ export default class Root extends Component<Props, State> {
   }
   componentWillMount() {
     auth.onAuthStateChanged(user => {
-      console.log(user)
       if (!(user && user.displayName)) {
         auth.signOut();
         this.setState({ user: null, uid: null, email: null, displayName: null });
-        toast.success('ログアウトしました')
         return;
       }
       const { email, uid, displayName } = user;
@@ -38,12 +32,6 @@ export default class Root extends Component<Props, State> {
       toast.success('ログインしました');
     });
   }
-  signIn = (providerName: string) => {
-    const providers: IProvider = {
-      Google: new firebase.auth.GoogleAuthProvider()
-    };
-    auth.signInWithRedirect(providers[providerName]);
-  };
   componentDidUpdate(_: any, prevState: any) {
     const { uid } = this.state as any;
     if (uid && !prevState.uid) {
@@ -70,9 +58,9 @@ export default class Root extends Component<Props, State> {
         {user ? (
           <BrowserRouter>{routes({ user })}</BrowserRouter>
         ) : (
-          <button onClick={this.signIn.bind(this, 'Google')}>
-            Googleでログイン
-          </button>
+          <div>
+            <SignInScreen></SignInScreen>
+          </div>
         )}
         <ToastContainer />
       </div>

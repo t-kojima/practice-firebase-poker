@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import logo from '../assets/images/logo.svg';
 import firebase from '../firebase';
 
@@ -13,6 +14,7 @@ export default class HeaderNav extends Component {
     this.state = {};
   }
   logout() {
+    toast.success('ログアウトしました');
     firebase.auth().signOut();
   }
   render() {

@@ -34,10 +34,21 @@ interface IProvider {
 
 signIn = (providerName: string) => {
   const providers: IProvider = {
-    Google: new firebase.auth.GoogleAuthProvider()
+    Google: new firebase.auth.GoogleAuthProvider(),
   };
   auth.signInWithRedirect(providers[providerName]);
 };
+```
+
+### 分割代入の型指定
+
+- [TypeScript で関数の引数に分割代入したときの型指定方法](https://teratail.com/questions/63145)
+
+```ts
+signInSuccessWithAuthResult: ({ user, operationType }: { user: any, operationType: string}) => {
+  console.log(user, operationType);
+  return false;
+},
 ```
 
 ## bulma
@@ -58,3 +69,22 @@ yarn add bulma node-sass
 @import '../node_modules/bulma/sass/layout/hero.sass';
 @import '../node_modules/bulma/sass/layout/section.sass';
 ```
+
+## theme
+
+#70732D
+#A62F03
+#731702
+#400101
+#0D0D0D
+
+## firebaseui
+
+https://qiita.com/musatarosu/items/5411772d97f72d00d267
+https://qiita.com/cola119/items/99350f2c34c51378777e
+
+```sh
+yarn add react-firebaseui
+```
+
+- components/SigninScreen.tsx
