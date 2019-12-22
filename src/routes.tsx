@@ -2,12 +2,18 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import Dashboard from './components/Dashboard';
+import Game from './components/game/Game';
 
 const routeObjs = [
   {
     exact: true,
     path: '/',
     component: Dashboard
+  },
+  {
+    exact: true,
+    path: '/game',
+    component: Game
   }
 ];
 

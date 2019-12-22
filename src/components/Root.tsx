@@ -58,19 +58,15 @@ export default class Root extends Component<Props, State> {
         {user ? (
           <BrowserRouter>{routes({ user })}</BrowserRouter>
         ) : (
-          <div className="container">
-            <section className="hero is-medium is-bold">
-              <div className="hero-body">
-                <div className="container text-center">
-                  <div className="neon large pink">
-                    電<span>子撲</span>克
-                  </div>
-                  <h2 className="subtitle">Video Poker</h2>
-                </div>
+          <section className="hero is-primary is-medium is-bold">
+            <div className="hero-body">
+              <div className="container">
+                <h1 className="title">Video Poker</h1>
+                <h2 className="subtitle">practice firebase</h2>
               </div>
-            </section>
+            </div>
             <SignInScreen></SignInScreen>
-          </div>
+          </section>
         )}
         <ToastContainer />
       </div>

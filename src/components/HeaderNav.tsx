@@ -28,9 +28,14 @@ export default class HeaderNav extends Component {
             </Link>
           </div>
 
-          <div id="navbarBasicExample" className="navbar-menu">
+          <div className="navbar-menu">
             <div className="navbar-start">
-              <a className="navbar-item">Home</a>
+              <Link className="navbar-item" to={'/'}>
+                Home
+              </Link>
+              <Link className="navbar-item" to={'/Game'}>
+                Game
+              </Link>
 
               <a className="navbar-item">Documentation</a>
 
