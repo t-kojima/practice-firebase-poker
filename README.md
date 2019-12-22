@@ -70,6 +70,17 @@ yarn add bulma node-sass
 @import '../node_modules/bulma/sass/layout/section.sass';
 ```
 
+### 謎のスクロール領域
+
+なぜか縦のスクロール領域が出っ放しになる。（スクロールはできないからバーは表示されない）
+`base/_all.sass`を無効化したら消えた。
+
+```scss
+// @import '../../../node_modules/bulma/sass/base/_all.sass';
+```
+
+他のスタイルは生きてる（`base/_all.sass`がどこに影響しているかわからない？）のでこのままにしとく
+
 ## theme
 
 #70732D
