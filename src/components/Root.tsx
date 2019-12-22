@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 import firebase from '../firebase';
 
@@ -24,15 +25,17 @@ export default class Root extends Component<Props, State> {
     this.state = {};
   }
   componentWillMount() {
-    auth.onAuthStateChanged(firebaseUser => {
-      if (!(firebaseUser && firebaseUser.displayName)) {
+    auth.onAuthStateChanged(user => {
+      console.log(user)
+      if (!(user && user.displayName)) {
         auth.signOut();
-        this.setState({ uid: null, email: null, displayName: null });
-        this.openLoginModal();
+        this.setState({ user: null, uid: null, email: null, displayName: null });
+        toast.success('ログアウトしました')
         return;
       }
-      const { email, uid, displayName } = firebaseUser;
+      const { email, uid, displayName } = user;
       this.setState({ uid, email, displayName });
+      toast.success('ログインしました');
     });
   }
   signIn = (providerName: string) => {
@@ -41,9 +44,6 @@ export default class Root extends Component<Props, State> {
     };
     auth.signInWithRedirect(providers[providerName]);
   };
-  openLoginModal() {
-    this.setState({ shouldShowLoginModal: true });
-  }
   componentDidUpdate(_: any, prevState: any) {
     const { uid } = this.state as any;
     if (uid && !prevState.uid) {
@@ -63,11 +63,10 @@ export default class Root extends Component<Props, State> {
     usersRef.doc(uid).set({ uid, email, displayName }, { merge: true });
   }
   render() {
-    console.log(this.state);
     const { user } = this.state as any;
     const { routes } = this.props as any;
     return (
-      <Fragment>
+      <div>
         {user ? (
           <BrowserRouter>{routes({ user })}</BrowserRouter>
         ) : (
@@ -76,7 +75,7 @@ export default class Root extends Component<Props, State> {
           </button>
         )}
         <ToastContainer />
-      </Fragment>
+      </div>
     );
   }
 }
